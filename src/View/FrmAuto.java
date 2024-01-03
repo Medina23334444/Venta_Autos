@@ -5,10 +5,13 @@
 package View;
 
 import Controller.AutoController;
+import Controller.TDAListas.Expection.VacioExpection;
 import Controller.TDAListas.LinkedList;
+
 import View.Tablas.ModelTableAuto;
 import View.Util.Util_VistaLinked;
 import com.formdev.flatlaf.FlatDarkLaf;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -30,6 +33,49 @@ public class FrmAuto extends javax.swing.JFrame {
         mtll.setLlantas(ac.getListAutos());
         tblAutos.setModel(mtll);
         tblAutos.updateUI();
+    }
+
+    private void buscar() throws VacioExpection {
+
+        String criterio = cbxCri.getSelectedItem().toString().toLowerCase();
+        String tipo = cbxTipo.getSelectedItem().toString();
+        Integer ascdes = cbxForm.getSelectedIndex();
+        String text = txtBusqueda.getText();
+        String busqueda = cbxTipoBus.getSelectedItem().toString();
+        try {
+            if (busqueda.equalsIgnoreCase("BusquedaBinaria")) {
+                mtll.setLlantas(ac.busquedaBinaria(ac.listAll(), text, criterio, tipo, ascdes));
+            } else {
+                mtll.setLlantas(ac.buscarBinarioLineal(ac.listAll(), text, criterio, tipo));
+            }
+            tblAutos.setModel(mtll);
+            tblAutos.updateUI();
+        } catch (Exception e) {
+            System.out.println("erooor" + e);
+        }
+
+    }
+
+    private void ordenar() {
+        String criterio = cbxCri.getSelectedItem().toString().toLowerCase();
+        String criterio1 = cbxTipo.getSelectedItem().toString().toLowerCase();
+        Integer ascdes = cbxForm.getSelectedIndex();
+        try {
+            long tiempoInicio = System.nanoTime();
+            if (criterio1.equalsIgnoreCase("MergeSort")) {
+                mtll.setLlantas(ac.mergeSort(ac.getListAutos(), ascdes, criterio));
+            } else {
+                mtll.setLlantas(ac.quicksort(ac.getListAutos(), ascdes, criterio));
+            }
+            long tiempoFin = System.nanoTime();
+            double tiempoTotal = (tiempoFin - tiempoInicio) / 1e6;
+            System.out.println("Tiempo total de ordenacion: " + tiempoTotal + " milisegundos");
+            tblAutos.setModel(mtll);
+            tblAutos.updateUI();
+        } catch (Exception e) {
+            System.out.println("Errooorrrr" + e);
+        }
+
     }
 
     private void limpiar() {
@@ -113,7 +159,6 @@ public class FrmAuto extends javax.swing.JFrame {
     // Muestra un mensaje de éxito o error según el resultado de la modificación.
     private void modificar() {
         try {
-
             ac.getAuto().setAnio_Fabricacion(txtAnioFa.getText());
             ac.getAuto().setColor(txtColor.getText());
             ac.getAuto().setDescripcion(txtDesc.getText());
@@ -159,6 +204,11 @@ public class FrmAuto extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAutos = new javax.swing.JTable();
+        cbxCri = new javax.swing.JComboBox<>();
+        cbxForm = new javax.swing.JComboBox<>();
+        cbxTipo = new javax.swing.JComboBox<>();
+        txtBusqueda = new javax.swing.JTextField();
+        cbxTipoBus = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -220,21 +270,20 @@ public class FrmAuto extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtAnioFa, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                             .addComponent(txtCombustible))))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(15, 15, 15))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(15, 15, 15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel7)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,21 +334,79 @@ public class FrmAuto extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblAutos);
 
+        cbxCri.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "modelo", "precio", "color", "id", "descripcion" }));
+
+        cbxForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ascendente", "descendente" }));
+        cbxForm.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxFormItemStateChanged(evt);
+            }
+        });
+        cbxForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFormActionPerformed(evt);
+            }
+        });
+
+        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MergeSort", "QuickSort" }));
+        cbxTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoActionPerformed(evt);
+            }
+        });
+
+        txtBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBusquedaActionPerformed(evt);
+            }
+        });
+
+        cbxTipoBus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BusquedaBinaria", "BusquedaLinealB" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(cbxTipoBus, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbxForm, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxCri, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxCri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxTipoBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
@@ -370,24 +477,23 @@ public class FrmAuto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -409,6 +515,26 @@ public class FrmAuto extends javax.swing.JFrame {
         modificar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void cbxFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFormActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxFormActionPerformed
+
+    private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxTipoActionPerformed
+
+    private void cbxFormItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxFormItemStateChanged
+        ordenar();
+    }//GEN-LAST:event_cbxFormItemStateChanged
+
+    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
+        try {
+            buscar();
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_txtBusquedaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -426,7 +552,11 @@ public class FrmAuto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxCri;
+    private javax.swing.JComboBox<String> cbxForm;
     private javax.swing.JComboBox<String> cbxMarca;
+    private javax.swing.JComboBox<String> cbxTipo;
+    private javax.swing.JComboBox<String> cbxTipoBus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -445,6 +575,7 @@ public class FrmAuto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblAutos;
     private javax.swing.JTextField txtAnioFa;
+    private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtCombustible;
     private javax.swing.JTextArea txtDesc;

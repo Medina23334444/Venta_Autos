@@ -70,23 +70,10 @@ public class DataAccessObject<T> implements TransferObject<T> {
         }
         return list;
     }
-
-    @Override
-    public T find(Integer id) {
-        LinkedList<T> list = listAll();
-
-        try {
-            return list.search(id);
-
-        } catch (Exception e) {
-            return null;
-        }
-
-    }
-
     public Integer generarId() {
         return listAll().getSize() + 1;
 
     }
 
+   
 }

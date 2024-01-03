@@ -1,0 +1,268 @@
+{
+    "Controller.TDAListas.LinkedList": {
+        "head": {
+            "data": {
+                "@class": "Model.Auto",
+                "id": 1,
+                "color": "Negro",
+                "precio": 129933,
+                "modelo": "2333An",
+                "descripcion": "Auto negro del 2005 Marca Kia",
+                "anio_Fabricacion": 2003,
+                "tipo_Combustible": "diesel",
+                "id_marca": 1
+            },
+            "next": {
+                "data": {
+                    "@class": "Model.Auto",
+                    "id": 2,
+                    "color": "Azul",
+                    "precio": 20300,
+                    "modelo": "12939An",
+                    "descripcion": "Auto azul de la Marca Kia del anio 2009",
+                    "anio_Fabricacion": 2009,
+                    "tipo_Combustible": "Diesel",
+                    "id_marca": 1
+                },
+                "next": {
+                    "data": {
+                        "@class": "Model.Auto",
+                        "id": 3,
+                        "color": "Verde",
+                        "precio": 23663,
+                        "modelo": "1234n22",
+                        "descripcion": "Auto de color verde de la marca Kia",
+                        "anio_Fabricacion": 2003,
+                        "tipo_Combustible": "Diesel",
+                        "id_marca": 1
+                    },
+                    "next": {
+                        "data": {
+                            "@class": "Model.Auto",
+                            "id": 4,
+                            "color": "Azul",
+                            "precio": 30000,
+                            "modelo": "2390NGt",
+                            "descripcion": "Auto de color azul de la marca toyota",
+                            "anio_Fabricacion": 2018,
+                            "tipo_Combustible": "Gasolina",
+                            "id_marca": 1
+                        },
+                        "next": {
+                            "data": {
+                                "@class": "Model.Auto",
+                                "id": 5,
+                                "color": "Azul",
+                                "precio": 300000,
+                                "modelo": "890GTRX",
+                                "descripcion": "Una auto toyota de color azul",
+                                "anio_Fabricacion": 2019,
+                                "tipo_Combustible": "Diesel",
+                                "id_marca": 1
+                            },
+                            "next": {
+                                "data": {
+                                    "@class": "Model.Auto",
+                                    "id": 6,
+                                    "color": "Negro",
+                                    "precio": 234232,
+                                    "modelo": "ACk12DF",
+                                    "descripcion": "Auto color negro Kia 2008",
+                                    "anio_Fabricacion": 2008,
+                                    "tipo_Combustible": "Diesel",
+                                    "id_marca": 1
+                                },
+                                "next": {
+                                    "data": {
+                                        "@class": "Model.Auto",
+                                        "id": 7,
+                                        "color": "Negro",
+                                        "precio": 4000000,
+                                        "modelo": "82626GTRX",
+                                        "descripcion": "Una auto toyota de color negro 2023",
+                                        "anio_Fabricacion": 2023,
+                                        "tipo_Combustible": "Diesel",
+                                        "id_marca": 2
+                                    },
+                                    "next": {
+                                        "data": {
+                                            "@class": "Model.Auto",
+                                            "id": 8,
+                                            "color": "Rojo",
+                                            "precio": 262662,
+                                            "modelo": "223NGt",
+                                            "descripcion": "Auto de color rojo de la marca Porge",
+                                            "anio_Fabricacion": 2013,
+                                            "tipo_Combustible": "Gasolina",
+                                            "id_marca": 3
+                                        },
+                                        "next": {
+                                            "data": {
+                                                "@class": "Model.Auto",
+                                                "id": 9,
+                                                "color": "Celeste",
+                                                "precio": 2323200,
+                                                "modelo": "7272A2n",
+                                                "descripcion": "Auto celeste de la Marca Toyota del anio 2002",
+                                                "anio_Fabricacion": 2002,
+                                                "tipo_Combustible": "Diesel",
+                                                "id_marca": 2
+                                            },
+                                            "next": {
+                                                "data": {
+                                                    "@class": "Model.Auto",
+                                                    "id": 10,
+                                                    "color": "Rosa",
+                                                    "precio": 6266262,
+                                                    "modelo": "5363A3n3",
+                                                    "descripcion": "Auto rosa del 2023 Marca Kia",
+                                                    "anio_Fabricacion": 2023,
+                                                    "tipo_Combustible": "diesel",
+                                                    "id_marca": 1
+                                                },
+                                                "next": {
+                                                    "data": {
+                                                        "@class": "Model.Auto",
+                                                        "id": 11,
+                                                        "color": "Morado",
+                                                        "precio": 26262,
+                                                        "modelo": "2626n22",
+                                                        "descripcion": "Auto de color morado de la marca Kia",
+                                                        "anio_Fabricacion": 1990,
+                                                        "tipo_Combustible": "Diesel",
+                                                        "id_marca": 1
+                                                    },
+                                                    "next": {
+                                                        "data": {
+                                                            "@class": "Model.Auto",
+                                                            "id": 12,
+                                                            "color": "Naranja",
+                                                            "precio": 28828,
+                                                            "modelo": "2552A2n22",
+                                                            "descripcion": "Auto naranja de la Marca Kia del anio 2019",
+                                                            "anio_Fabricacion": 2019,
+                                                            "tipo_Combustible": "Diesel",
+                                                            "id_marca": 1
+                                                        },
+                                                        "next": {
+                                                            "data": {
+                                                                "@class": "Model.Auto",
+                                                                "id": 13,
+                                                                "color": "Negro",
+                                                                "precio": 525252,
+                                                                "modelo": "262GTR3X3",
+                                                                "descripcion": "Una auto Porge de color negro 2012",
+                                                                "anio_Fabricacion": 2012,
+                                                                "tipo_Combustible": "Diesel",
+                                                                "id_marca": 3
+                                                            },
+                                                            "next": {
+                                                                "data": {
+                                                                    "@class": "Model.Auto",
+                                                                    "id": 14,
+                                                                    "color": "Violeta",
+                                                                    "precio": 637733,
+                                                                    "modelo": "73883An3",
+                                                                    "descripcion": "Auto violeta de la Marca Kia del anio 2012",
+                                                                    "anio_Fabricacion": 2012,
+                                                                    "tipo_Combustible": "Diesel",
+                                                                    "id_marca": 1
+                                                                },
+                                                                "next": {
+                                                                    "data": {
+                                                                        "@class": "Model.Auto",
+                                                                        "id": 15,
+                                                                        "color": "Naranja",
+                                                                        "precio": 6373773,
+                                                                        "modelo": "6373nnd",
+                                                                        "descripcion": "Auto naranja de la Marca Kia del anio 2012",
+                                                                        "anio_Fabricacion": 2012,
+                                                                        "tipo_Combustible": "Diesel",
+                                                                        "id_marca": 1
+                                                                    },
+                                                                    "next": {
+                                                                        "data": {
+                                                                            "@class": "Model.Auto",
+                                                                            "id": 16,
+                                                                            "color": "Mangeta",
+                                                                            "precio": 53633,
+                                                                            "modelo": "526A22n",
+                                                                            "descripcion": "Auto mangeta de la Marca Kia del anio 2012",
+                                                                            "anio_Fabricacion": 2012,
+                                                                            "tipo_Combustible": "Diesel",
+                                                                            "id_marca": 1
+                                                                        },
+                                                                        "next": {
+                                                                            "data": {
+                                                                                "@class": "Model.Auto",
+                                                                                "id": 17,
+                                                                                "color": "Amarillo",
+                                                                                "precio": 262662,
+                                                                                "modelo": "23nA2344",
+                                                                                "descripcion": "Auto de color amarillo de la marca Kia",
+                                                                                "anio_Fabricacion": 2012,
+                                                                                "tipo_Combustible": "Diesel",
+                                                                                "id_marca": 1
+                                                                            },
+                                                                            "next": {
+                                                                                "data": {
+                                                                                    "@class": "Model.Auto",
+                                                                                    "id": 18,
+                                                                                    "color": "Rojo",
+                                                                                    "precio": 73737,
+                                                                                    "modelo": "HR12J",
+                                                                                    "descripcion": "Auto de color rojo de la marca Porge",
+                                                                                    "anio_Fabricacion": 2008,
+                                                                                    "tipo_Combustible": "Diesel",
+                                                                                    "id_marca": 3
+                                                                                },
+                                                                                "next": {
+                                                                                    "data": {
+                                                                                        "@class": "Model.Auto",
+                                                                                        "id": 19,
+                                                                                        "color": "Morado",
+                                                                                        "precio": 373730,
+                                                                                        "modelo": "AN34LLS",
+                                                                                        "descripcion": "Auto de color morado de la marca Toyota",
+                                                                                        "anio_Fabricacion": 2003,
+                                                                                        "tipo_Combustible": "Diesel",
+                                                                                        "id_marca": 2
+                                                                                    },
+                                                                                    "next": {
+                                                                                        "data": {
+                                                                                            "@class": "Model.Auto",
+                                                                                            "id": 20,
+                                                                                            "color": "Rosa",
+                                                                                            "precio": 883838,
+                                                                                            "modelo": 937633,
+                                                                                            "descripcion": "Auto rosa del 2023 Marca Porge",
+                                                                                            "anio_Fabricacion": 2015,
+                                                                                            "tipo_Combustible": "diesel",
+                                                                                            "id_marca": 3
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/head\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next\/next"
+        },
+        "size": 20
+    }
+}

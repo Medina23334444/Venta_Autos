@@ -113,5 +113,48 @@ public class Venta {
         this.nroVenta = nroVenta;
     }
 
+    public Boolean comparar(Venta c, String field, Integer type) {
+
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("Fecha")) {
+                    return getFecha().compareTo(c.getFecha()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().intValue() > (c.getId().intValue());
+                } else if (field.equalsIgnoreCase("valorVenta")) {
+                    return getValorVenta() > c.getValorVenta();
+                } else if (field.equalsIgnoreCase("nroVenta")) {
+                    return getNroVenta().compareTo(c.getNroVenta()) > 0;
+                }
+
+            case 0:
+                if (field.equalsIgnoreCase("Fecha")) {
+                    return getFecha().compareTo(c.getFecha()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().intValue() < (c.getId().intValue());
+                } else if (field.equalsIgnoreCase("valorVenta")) {
+                    return getValorVenta() < c.getValorVenta();
+                } else if (field.equalsIgnoreCase("nroVenta")) {
+                    return getNroVenta().compareTo(c.getNroVenta()) < 0;
+                }
+            default:
+                return false;
+        }
+    }
+    
+     public int comparar(Venta venta, String text, String campo) {
+        switch (campo.toLowerCase()) {
+            case "fecha":
+                return text.compareTo(venta.getFecha().toLowerCase());
+            case "nroventa":
+                return text.compareTo(venta.getNroVenta().toLowerCase());
+            case "valorventa":
+                return Double.compare(Double.parseDouble(text), venta.getValorVenta());
+            case "id":
+                return Integer.compare(Integer.parseInt(text), venta.getId());
+            default:
+                throw new IllegalArgumentException("Campo de comparacion no valido");
+        }
+    }
 
 }

@@ -42,11 +42,17 @@ public class ModelTableVenta1 extends AbstractTableModel {
             case 2:
                 return (venta != null) ? venta.getValorVenta() : "";
             case 3:
-                Vendedor vendedor = vc.search(venta.getId_vendedor());
+              try {
+                Vendedor vendedor = vc.busquedaBinaria2(vc.listAll(), venta.getId_vendedor().toString(), "id", "quicksort", 0);
                 return (vendedor != null) ? vendedor.getNombre() : "";
+            } catch (Exception e) {
+            }
             case 4:
-                Auto auto = ac.search(venta.getId_auto());
+              try {
+                Auto auto = ac.busquedaBinaria2(ac.listAll(), venta.getId_auto().toString(), "id", "quicksort", 0);
                 return (auto != null) ? auto.getModelo() : "";
+            } catch (Exception e) {
+            }
             default:
                 return null;
         }

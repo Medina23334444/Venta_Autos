@@ -2,13 +2,8 @@ package View.Tablas;
 
 import Controller.TDAListas.Expection.VacioExpection;
 import Controller.TDAListas.LinkedList;
-import Model.Auto;
 import Model.Vendedor;
 import javax.swing.table.AbstractTableModel;
-
-
-
-
 
 public class ModelTableVendedor extends AbstractTableModel {
 
@@ -21,28 +16,32 @@ public class ModelTableVendedor extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 6;
     }
 
     @Override
     public Object getValueAt(int row, int col) {
-     Vendedor seller = null;
+        Vendedor seller = null;
         try {
-           seller = vendedor.get(row);
-           seller.getId();
-            System.out.println(""+ seller.getId());
+            seller = vendedor.get(row);
+            seller.getId();
         } catch (VacioExpection e) {
             throw new RuntimeException(e);
         }
         switch (col) {
+
             case 0:
-                return (seller != null) ? seller.getDNI() : "";
+                return (seller != null) ? seller.getId() : "";
             case 1:
                 return (seller != null) ? seller.getRUC() : "";
             case 2:
-                return (seller != null) ? seller.getNombre(): "";
+                return (seller != null) ? seller.getNombre() : "";
             case 3:
                 return (seller != null) ? seller.getTelefono() : "";
+            case 4:
+                return (seller != null) ? seller.getCorreo() : "";
+            case 5:
+                return (seller != null) ? seller.getDNI() : "";
             default:
                 return null;
         }
@@ -51,13 +50,17 @@ public class ModelTableVendedor extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "DNI";
+                return "ID";
             case 1:
                 return "RUC";
             case 2:
                 return "Nombre";
             case 3:
                 return "Telefono";
+            case 4:
+                return "Correo";
+            case 5:
+                return "DNI";
             default:
                 return null;
         }
@@ -76,7 +79,5 @@ public class ModelTableVendedor extends AbstractTableModel {
     public void setVendedor(LinkedList<Vendedor> vendedor) {
         this.vendedor = vendedor;
     }
-
-  
 
 }

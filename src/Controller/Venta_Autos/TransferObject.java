@@ -20,6 +20,6 @@ public interface TransferObject <T> {
 
     public LinkedList<T> listAll();
 
-    public T find(Integer id);
+   
 
 }

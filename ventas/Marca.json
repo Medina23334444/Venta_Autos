@@ -1,0 +1,32 @@
+{
+    "Controller.TDAListas.LinkedList": {
+        "head": {
+            "data": {
+                "@class": "Model.Marca",
+                "id": 1,
+                "nombre": "Kia",
+                "estado": true
+            },
+            "next": {
+                "data": {
+                    "@class": "Model.Marca",
+                    "id": 2,
+                    "nombre": "Toyota",
+                    "estado": true
+                },
+                "next": {
+                    "data": {
+                        "@class": "Model.Marca",
+                        "id": 3,
+                        "nombre": "Porge",
+                        "estado": true
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/head\/next\/next"
+        },
+        "size": 3
+    }
+}

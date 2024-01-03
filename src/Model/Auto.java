@@ -136,4 +136,58 @@ public class Auto {
         return getModelo() + "-" + getColor();
     }
 
+    public Boolean comparar(Auto c, String field, Integer type) {
+
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("color")) {
+                    return getColor().compareTo(c.getColor()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().intValue() > (c.getId().intValue());
+                } else if (field.equalsIgnoreCase("modelo")) {
+                    return getModelo().compareTo(c.getModelo()) > 0;
+                } else if (field.equalsIgnoreCase("precio")) {
+                    return this.getPrecio() > (c.getPrecio());
+                } else if (field.equalsIgnoreCase("descripcion")) {
+                    return getDescripcion().compareTo(c.getDescripcion()) > 0;
+                }
+
+            case 0:
+                if (field.equalsIgnoreCase("color")) {
+                    return getColor().compareTo(c.getColor()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().intValue() < (c.getId().intValue());
+                } else if (field.equalsIgnoreCase("modelo")) {
+                    return getModelo().compareTo(c.getModelo()) < 0;
+                } else if (field.equalsIgnoreCase("precio")) {
+                    return this.getPrecio() < (c.getPrecio());
+                } else if (field.equalsIgnoreCase("descripcion")) {
+                    return getDescripcion().compareTo(c.getDescripcion()) < 0;
+                }
+            default:
+                return false;
+        }
+    }
+
+    public int comparar(Auto auto, String text, String campo) {
+        switch (campo.toLowerCase()) {
+            case "modelo":
+                return text.compareTo(auto.getModelo().toLowerCase());
+            case "color":
+                return text.compareTo(auto.getColor().toLowerCase());
+            case "precio":
+                return Double.compare(Double.parseDouble(text), auto.getPrecio());
+            case "descripcion":
+                return text.compareTo(auto.getDescripcion().toLowerCase());
+            case "id":
+                try {
+                return Integer.compare(Integer.parseInt(text), auto.getId());
+            } catch (Exception e) {
+                System.out.println("errorr" + e);
+            }
+            default:
+                throw new IllegalArgumentException("Campo de comparación no válido");
+        }
+    }
+
 }

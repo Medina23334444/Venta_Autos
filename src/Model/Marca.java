@@ -4,6 +4,8 @@
  */
 package Model;
 
+import com.thoughtworks.xstream.converters.extended.ToStringConverter;
+
 /**
  *
  * @author Usuario
@@ -40,6 +42,46 @@ public class Marca {
 
     @Override
     public String toString() {
-        return nombre;
+        return "__" + id + "" + nombre;
     }
+
+    public Boolean comparar(Marca c, String field, Integer type) {
+
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("nombre")) {
+                    return getNombre().compareTo(c.getNombre()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() > (c.getId().intValue());
+
+                }
+
+            case 0:
+                if (field.equalsIgnoreCase("nombre")) {
+                    return getNombre().compareTo(c.getNombre()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return getId().intValue() < (c.getId().intValue());
+
+                }
+
+            default:
+                return false;
+        }
+    }
+
+    public int comparar(Marca marca, String text, String campo) {
+        switch (campo.toLowerCase()) {
+            case "nombre":
+                return text.compareTo(marca.getNombre().toLowerCase());
+            case "id":
+                try {
+                return Integer.compare(Integer.parseInt(text), marca.getId());
+            } catch (Exception e) {
+                System.out.println("errorr" + e);
+            }
+            default:
+                throw new IllegalArgumentException("Campo de comparación no válido");
+        }
+    }
+
 }

@@ -107,4 +107,53 @@ public class Vendedor {
 
     }
 
+    public Boolean comparar(Vendedor c, String field, Integer type) {
+
+        switch (type) {
+            case 1:
+                if (field.equalsIgnoreCase("DNI")) {
+                    return getDNI().compareTo(c.getDNI()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().intValue() > (c.getId().intValue());
+                } else if (field.equalsIgnoreCase("RUC")) {
+                    return getRUC().compareTo(c.getRUC()) > 0;
+                } else if (field.equalsIgnoreCase("nombre")) {
+                    return getNombre().compareTo(c.getNombre()) > 0;
+                } else if (field.equalsIgnoreCase("correo")) {
+                    return getCorreo().compareTo(c.getCorreo()) > 0;
+                }
+
+            case 0:
+                if (field.equalsIgnoreCase("DNI")) {
+                    return getDNI().compareTo(c.getDNI()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().intValue() < (c.getId().intValue());
+                } else if (field.equalsIgnoreCase("RUC")) {
+                    return getRUC().compareTo(c.getRUC()) < 0;
+                } else if (field.equalsIgnoreCase("nombre")) {
+                    return getNombre().compareTo(c.getNombre()) < 0;
+                } else if (field.equalsIgnoreCase("correo")) {
+                    return getCorreo().compareTo(c.getCorreo()) < 0;
+                }
+            default:
+                return false;
+        }
+    }
+
+    public int comparar(Vendedor vendedor, String text, String campo) {
+        switch (campo.toLowerCase()) {
+            case "correo":
+                return text.compareTo(vendedor.getCorreo().toLowerCase());
+            case "dni":
+                return text.compareTo(vendedor.getDNI().toLowerCase());
+            case "nombre":
+                return text.compareTo(vendedor.getNombre().toLowerCase());
+            case "ruc":
+                return text.compareTo(vendedor.getRUC().toLowerCase());
+            case "id":
+                return Integer.compare(Integer.parseInt(text), vendedor.getId());
+            default:
+                throw new IllegalArgumentException("Campo de comparación no válido");
+        }
+    }
 }

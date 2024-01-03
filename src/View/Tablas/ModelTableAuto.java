@@ -5,10 +5,6 @@ import Controller.TDAListas.LinkedList;
 import Model.Auto;
 import javax.swing.table.AbstractTableModel;
 
-
-
-
-
 public class ModelTableAuto extends AbstractTableModel {
 
     private LinkedList<Auto> llantas;
@@ -20,12 +16,12 @@ public class ModelTableAuto extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
     public Object getValueAt(int row, int col) {
-       Auto auto = null;
+        Auto auto = null;
         try {
             auto = llantas.get(row);
             auto.getId();
@@ -34,6 +30,8 @@ public class ModelTableAuto extends AbstractTableModel {
         }
         switch (col) {
             case 0:
+                return (auto != null) ? auto.getId() : "";
+            case 4:
                 return (auto != null) ? auto.getColor() : "";
             case 1:
                 return (auto != null) ? auto.getDescripcion() : "";
@@ -49,6 +47,8 @@ public class ModelTableAuto extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
+                return "ID";
+            case 4:
                 return "Color";
             case 1:
                 return "Descripcion";

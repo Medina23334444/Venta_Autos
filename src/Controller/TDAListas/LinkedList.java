@@ -23,6 +23,30 @@ public class LinkedList<E> {
         size = 0;
     }
 
+    public E[] toArray() {
+        Class clazz = null;
+        E[] matriz = null;
+        if (this.size > 0) {
+            clazz = head.getData().getClass();
+            matriz = (E[]) java.lang.reflect.Array.newInstance(clazz, size);
+            Nodo<E> aux = head;
+            for (int i = 0; i < size; i++) {
+                matriz[i] = aux.getData();
+                aux = aux.getNext();
+
+            }
+        }
+        return matriz;
+    }
+
+    public LinkedList<E> toList(E[] m) {
+        clear();
+        for (int i = 0; i < m.length; i++) {
+            this.add(m[i]);
+        }
+        return this;
+    }
+
     public Integer getSize() {
         return size;
     }
@@ -94,27 +118,31 @@ public class LinkedList<E> {
         }
     }
 
-// Busca un elemento en la LinkedList por su identificador.
-    public E search(Object id) {
-        // current es el nodo actual
+    public E search(E data) {
         Nodo<E> current = head;
-
         while (current != null) {
-            E element = current.getData();
-            try {
-                Integer elementId = (Integer) element.getClass().getMethod("getId").invoke(element);
-                if (element != null && elementId.equals(id)) {
-                    return element;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (current.getData().equals(data)) {
+                return current.getData();
             }
-
             current = current.getNext();
         }
         return null;
     }
 
+//    public E get(Integer index) throws VacioExpection {
+//        if (isEmpty()) {
+//            throw new VacioExpection("LLLL");
+//        } else if (index.intValue() < 0 || index.intValue() >= size) {
+//            throw new IndexOutOfBoundsException("mmmm");
+//        } else if (index.intValue() == 0) {
+//            return getFirst();
+//        } else if (index.intValue() == (size - 1)) {
+//            return getLast();
+//        } else {
+//            Nodo<E> search = getNode(index);
+//            return search.getData();
+//        }
+//    }
     public void update(E data, Integer post) throws VacioExpection {
         if (isEmpty()) {
             throw new VacioExpection("Error, Lista vacia");
@@ -135,7 +163,7 @@ public class LinkedList<E> {
         }
     }
 
-    public Nodo<E> getNode(Integer post) throws VacioExpection {
+    private Nodo<E> getNode(Integer post) throws VacioExpection {
         if (isEmpty()) {
             throw new VacioExpection("Error, Lista vacia");
         } else if (post < 0 || post >= size) {
@@ -245,6 +273,16 @@ public class LinkedList<E> {
         }
     }
 
+    public static void imprimir(Integer[] m) {
+        System.out.println("******************");
+        System.out.print("\t");
+        for (int i = 0; i < m.length; i++) {
+            System.out.print(m[i] + "\t");
+        }
+        System.out.println();
+        System.out.println("******************");
+    }
+
     public String print() {
         StringBuilder sb = new StringBuilder();
         if (isEmpty()) {
@@ -259,22 +297,115 @@ public class LinkedList<E> {
         return sb.toString();
     }
 
-//    public static void main(String[] args) throws VacioExpection {
-//        LinkedList<Integer> numerics = new LinkedList<>();
-//        for (int i = 0; i < 10; i++) {
-//            Integer aux = (int) (Math.random() * 1000);
-//            numerics.add(aux);
-//        }
-//
-//        numerics.add(1, 1);
-//
-//        System.out.println(numerics.print());
-//        System.out.println("-----------------------------------------------");
-//        System.out.println("Tamanio de lista: " + numerics.getSize());
-//        try {
-//            System.out.println(numerics.getNode(1).getData().toString());
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
+    @Override
+    public String toString() {
+        return print();
+    }
+
+    public static void main(String[] args) throws VacioExpection {
+        Integer[] in = new Integer[50];
+        Integer[] sac = new Integer[50];
+        Integer[] se = new Integer[50];
+        Integer[] m = new Integer[50];
+        for (int i = 0; i < m.length; i++) {
+            Integer aux = (int) (Math.random() * 100);
+            m[i] = aux;
+            in[i] = aux;
+            se[i] = aux;
+            sac[i] = aux;
+
+        }
+        LinkedList.imprimir(m);
+        // Burbuja
+        Integer intercambios = 0;
+        for (int i = 1; i < m.length - 1; i++) {
+            for (int j = m.length - 1; j > 0; j--) {
+                if (m[j - 1] > m[j]) {
+                    Integer aux = m[j - 1];
+                    m[j - 1] = m[j];
+                    m[j] = aux;
+                    intercambios++;
+                }
+
+            }
+
+        }
+        LinkedList.imprimir(m);
+        System.out.println("Intecambios " + intercambios);
+        // Insercion
+
+        System.out.println("INSERCION");
+        LinkedList.imprimir(in);
+        Integer n = in.length;
+        Integer intercambioIns = 0;
+        for (int i = 1; i < n; i++) {
+            int j = i - 1;
+            Integer t = in[i];
+            while (j >= 0 && t < in[j]) {
+                in[j + 1] = in[j];
+                j = j - 1;
+                intercambioIns++;
+            }
+            in[j + 1] = t;
+        }
+        LinkedList.imprimir(in);
+        System.out.println("Intercambios " + intercambioIns);
+
+        // seleccion
+        System.out.println("SELECCION");
+        Integer intercambioSe = 0;
+        LinkedList.imprimir(se);
+
+        for (int i = 0; i < n - 1; i++) {
+            int k = i;
+            int t = se[i];
+            for (int j = i + 1; j < n; j++) {
+                if (se[j] < t) {
+                    t = se[j];
+                    k = j;
+                    intercambioSe++;
+                }
+            }
+            se[k] = se[i];
+            se[i] = t;
+        }
+
+        LinkedList.imprimir(se);
+        System.out.println("Intercambios " + intercambioSe);
+
+        // sacudida
+        System.out.println("Sacudida");
+        Integer interSac = 0;
+        LinkedList.imprimir(sac);
+        int i, j, der, izq, aux = 0;
+        izq = 1;
+        der = n - 1;
+        j = n - 1;
+
+        do {
+            for (i = der; i >= izq; i--) {
+                if (sac[i - 1] > sac[i]) {
+                    aux = sac[i];
+                    sac[i] = sac[i - 1];
+                    sac[i - 1] = aux;
+                    j = i;
+                    interSac++;
+                }
+            }
+            izq = j + 1;
+            for (i = izq; i <= der; i++) {
+                if (sac[i - 1] > sac[i]) {
+                    aux = sac[i];
+                    sac[i] = sac[i - 1];
+                    sac[i - 1] = aux;
+                    j = i;
+                    interSac++;
+                }
+                der = j - 1;
+            }
+        } while (izq <= der);
+        LinkedList.imprimir(sac);
+        System.out.println("Inserciones" + interSac);
+    }
+
 }
