@@ -133,7 +133,7 @@ public class Auto {
 
     @Override
     public String toString() {
-        return getModelo() + "-" + getColor();
+        return getModelo();
     }
 
     public Boolean comparar(Auto c, String field, Integer type) {

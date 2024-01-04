@@ -103,7 +103,7 @@ public class Vendedor {
 
     @Override
     public String toString() {
-        return nombre + "-" + DNI;
+        return id + "-" + nombre;
 
     }
 

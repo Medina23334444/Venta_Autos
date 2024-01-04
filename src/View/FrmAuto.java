@@ -9,6 +9,7 @@ import Controller.TDAListas.Expection.VacioExpection;
 import Controller.TDAListas.LinkedList;
 
 import View.Tablas.ModelTableAuto;
+import View.Tablas.ModelTableAutoBusqueda;
 import View.Util.Util_VistaLinked;
 import com.formdev.flatlaf.FlatDarkLaf;
 
@@ -23,6 +24,7 @@ public class FrmAuto extends javax.swing.JFrame {
 
     private AutoController ac = new AutoController();
     private ModelTableAuto mtll = new ModelTableAuto();
+    private ModelTableAutoBusqueda a = new ModelTableAutoBusqueda();
 
     public FrmAuto() {
         initComponents();
@@ -44,12 +46,15 @@ public class FrmAuto extends javax.swing.JFrame {
         String busqueda = cbxTipoBus.getSelectedItem().toString();
         try {
             if (busqueda.equalsIgnoreCase("BusquedaBinaria")) {
-                mtll.setLlantas(ac.busquedaBinaria(ac.listAll(), text, criterio, tipo, ascdes));
+                a.setAuto(ac.busquedaBinaria2(ac.listAll(), text, criterio, tipo, ascdes));
+                tblAutos.setModel(a);
+                tblAutos.updateUI();
+                System.out.println("se puedo");
             } else {
                 mtll.setLlantas(ac.buscarBinarioLineal(ac.listAll(), text, criterio, tipo));
+                tblAutos.setModel(mtll);
+                tblAutos.updateUI();
             }
-            tblAutos.setModel(mtll);
-            tblAutos.updateUI();
         } catch (Exception e) {
             System.out.println("erooor" + e);
         }

@@ -45,8 +45,7 @@ public class Venta {
      * @return the fecha
      */
     public String getFecha() {
-//        LocalDate fechaHoy = LocalDate.now();
-//        fecha = fechaHoy.toString();
+
         return fecha;
     }
 
@@ -114,7 +113,8 @@ public class Venta {
     }
 
     public Boolean comparar(Venta c, String field, Integer type) {
-
+       
+        System.out.println(getId_auto());
         switch (type) {
             case 1:
                 if (field.equalsIgnoreCase("Fecha")) {
@@ -125,24 +125,32 @@ public class Venta {
                     return getValorVenta() > c.getValorVenta();
                 } else if (field.equalsIgnoreCase("nroVenta")) {
                     return getNroVenta().compareTo(c.getNroVenta()) > 0;
+                } else if (field.equalsIgnoreCase("id_vendedor")) {
+                    return getId_vendedor() > (c.getId_vendedor());
+                } else if (field.equalsIgnoreCase("id_auto")) {
+                    return getId_auto() > c.getId_auto();
                 }
 
             case 0:
                 if (field.equalsIgnoreCase("Fecha")) {
                     return getFecha().compareTo(c.getFecha()) < 0;
                 } else if (field.equalsIgnoreCase("id")) {
-                    return this.getId().intValue() < (c.getId().intValue());
+                    return this.getId() < (c.getId());
                 } else if (field.equalsIgnoreCase("valorVenta")) {
                     return getValorVenta() < c.getValorVenta();
                 } else if (field.equalsIgnoreCase("nroVenta")) {
                     return getNroVenta().compareTo(c.getNroVenta()) < 0;
+                } else if (field.equalsIgnoreCase("id_vendedor")) {
+                    return this.getId_vendedor() < (c.getId_vendedor());
+                } else if (field.equalsIgnoreCase("id_auto")) {
+                    return getId_auto() < c.getId_auto();
                 }
             default:
                 return false;
         }
     }
-    
-     public int comparar(Venta venta, String text, String campo) {
+
+    public int comparar(Venta venta, String text, String campo) {
         switch (campo.toLowerCase()) {
             case "fecha":
                 return text.compareTo(venta.getFecha().toLowerCase());
@@ -152,6 +160,16 @@ public class Venta {
                 return Double.compare(Double.parseDouble(text), venta.getValorVenta());
             case "id":
                 return Integer.compare(Integer.parseInt(text), venta.getId());
+            case "id_vendedor":
+                try {
+                return Integer.compare(Integer.parseInt(text), venta.getId_vendedor());
+            } catch (Exception e) {
+            }
+            case "id_auto":
+                try {
+                return Integer.compare(Integer.parseInt(text), venta.getId_auto());
+            } catch (Exception e) {
+            }
             default:
                 throw new IllegalArgumentException("Campo de comparacion no valido");
         }

@@ -31,28 +31,6 @@ public class VendedorController extends DataAccessObject<Vendedor> {
         return update(vendedor, i);
     }
 
-    public LinkedList<Vendedor> busquedaBinaria(LinkedList<Vendedor> lista, String text, String campo, String tipo, Integer type) throws VacioExpection {
-        LinkedList<Vendedor> listaOrdenada = new LinkedList<>();
-        if (tipo.equalsIgnoreCase("MergeSort")) {
-            listaOrdenada = mergeSort(lista, 0, campo);
-        } else if (tipo.equalsIgnoreCase("QuickSort")) {
-            listaOrdenada = quicksort(lista, 0, campo);
-        }
-        LinkedList<Vendedor> marc = new LinkedList<>();
-        int index = busquedaBinaria1(listaOrdenada, text.toLowerCase(), campo);
-        if (index != -1) {
-            while (index < listaOrdenada.getSize() && getForm(listaOrdenada.get(index), text, campo)) {
-                marc.add(listaOrdenada.get(index));
-                index++;
-            }
-
-        } else {
-            System.out.println("Elemento no encontrado");
-        }
-
-        return marc;
-    }
-
     private int busquedaBinaria1(LinkedList<Vendedor> lista, String text, String campo) throws VacioExpection {
         int infe = 0;
         int sup = lista.getSize() - 1;

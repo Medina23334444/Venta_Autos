@@ -1,18 +1,15 @@
 package View.Tablas;
 
-import Controller.TDAListas.Expection.VacioExpection;
-import Controller.TDAListas.LinkedList;
 import Model.Auto;
 import javax.swing.table.AbstractTableModel;
 
-public class ModelTableAuto extends AbstractTableModel {
+public class ModelTableAutoBusqueda extends AbstractTableModel {
 
-    private LinkedList<Auto> llantas;
-    private Auto auto = new Auto();
+    private Auto auto1 = new Auto();
 
     @Override
     public int getRowCount() {
-        return getLlantas().getSize();
+        return 1;
     }
 
     @Override
@@ -22,13 +19,8 @@ public class ModelTableAuto extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-        Auto auto = null;
-        try {
-            auto = llantas.get(row);
-            auto.getId();
-        } catch (VacioExpection e) {
-            throw new RuntimeException(e);
-        }
+        Auto auto = auto1;
+       
         switch (col) {
             case 0:
                 return (auto != null) ? auto.getId() : "";
@@ -63,31 +55,17 @@ public class ModelTableAuto extends AbstractTableModel {
     }
 
     /**
-     * @return the llantas
-     */
-    public LinkedList<Auto> getLlantas() {
-        return llantas;
-    }
-
-    /**
-     * @param llantas the llantas to set
-     */
-    public void setLlantas(LinkedList<Auto> llantas) {
-        this.llantas = llantas;
-    }
-
-    /**
      * @return the auto
      */
     public Auto getAuto() {
-        return auto;
+        return auto1;
     }
 
     /**
      * @param auto the auto to set
      */
     public void setAuto(Auto auto) {
-        this.auto = auto;
+        this.auto1 = auto;
     }
     
 

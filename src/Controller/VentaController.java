@@ -139,7 +139,7 @@ public class VentaController extends DataAccessObject<Venta> {
     }
 
     public LinkedList<Venta> mergeSort(LinkedList<Venta> lista, Integer type, String field) throws VacioExpection {
-        Venta[] m = lista.toArray();
+        Venta[] m = lista.toArray(); 
         mergeSort(m, type, field);
         lista.toList(m);
         return lista;
@@ -164,6 +164,7 @@ public class VentaController extends DataAccessObject<Venta> {
         int i = 0, j = 0, k = 0;
 
         while (i < der.length && j < izq.length) {
+            System.out.println(der[i].getId_auto());
             if (der[i].comparar(izq[j], field, type)) {
                 resultado[k++] = der[i++];
             } else {
@@ -178,21 +179,17 @@ public class VentaController extends DataAccessObject<Venta> {
         }
     }
 
-    public LinkedList<Venta> busquedaBinaria(LinkedList<Venta> lista, String text, String campo, String tipo, Integer type) throws VacioExpection {
+    public Venta busquedaBinaria2(LinkedList<Venta> lista, String text, String campo, String tipo, Integer type) throws VacioExpection {
         LinkedList<Venta> listaOrdenada = ordenarLista(lista, campo, tipo);
-        LinkedList<Venta> marc = new LinkedList<>();
-        int index = busquedaBinaria1(listaOrdenada, text.toLowerCase(), campo);
-        if (index != -1) {
-            while (index < listaOrdenada.getSize() && getForm(listaOrdenada.get(index), text, campo)) {
-                marc.add(listaOrdenada.get(index));
-                index++;
-            }
 
+        int index = busquedaBinaria1(listaOrdenada, text.toLowerCase(), campo);
+
+        if (index != -1) {
+            return listaOrdenada.get(index);
         } else {
             System.out.println("Elemento no encontrado");
+            return null;
         }
-
-        return marc;
     }
 
     private int busquedaBinaria1(LinkedList<Venta> lista, String text, String campo) throws VacioExpection {
@@ -226,10 +223,14 @@ public class VentaController extends DataAccessObject<Venta> {
                 return venta.getFecha().equalsIgnoreCase(text);
             case "nroventa":
                 return venta.getNroVenta().equalsIgnoreCase(text);
-            case "nombre":
+            case "valorventa":
                 return Double.toString(venta.getValorVenta()).equalsIgnoreCase(text);
             case "id":
                 return Integer.toString(venta.getId()).equalsIgnoreCase(text);
+            case "id_vendedor":
+                return Integer.toString(venta.getId_vendedor()).equalsIgnoreCase(text);
+            case "id_auto":
+                return Integer.toString(venta.getId_auto()).equalsIgnoreCase(text);
             default:
                 throw new IllegalArgumentException("Campo de comparación no válido");
         }
@@ -273,7 +274,6 @@ public class VentaController extends DataAccessObject<Venta> {
         } else if (tipo.equalsIgnoreCase("QuickSort")) {
             listaOrdenada = quicksort(lista, 0, campo);
         }
-
         return listaOrdenada;
     }
 
