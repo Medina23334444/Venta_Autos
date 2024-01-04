@@ -75,6 +75,12 @@ public class FrmVenta extends javax.swing.JFrame {
         Integer ascdes = cbxForm.getSelectedIndex();
         try {
             long tiempoInicio = System.nanoTime();
+
+            if (criterio.equalsIgnoreCase("auto")) {
+                criterio = "id_auto";
+            } else if (criterio.equalsIgnoreCase("vendedor")) {
+                criterio = "id_vendedor";
+            }
             if (criterio1.equalsIgnoreCase("MergeSort")) {
                 mtv.setVentas(vc.mergeSort(vc.getListVentas(), ascdes, criterio));
             } else {
